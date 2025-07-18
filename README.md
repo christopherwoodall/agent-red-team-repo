@@ -23,12 +23,4 @@ Unlike traditional chatbots, where the user converses with the system via a text
 ### Misc
   - [Indirect Prompt Injection](https://x.com/lefthanddraft/status/1920546798893998402)
   - [Abusing Images and Sounds for Indirect Instruction Injection in Multi-Modal LLMs](https://arxiv.org/abs/2307.10490)
-
-
-
-
-
-
-
-
-
+  - [Prompt Injection ToolKit](https://x.com/PreambleAI/status/1946179395040710702)
