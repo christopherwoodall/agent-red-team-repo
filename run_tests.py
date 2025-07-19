@@ -16,7 +16,7 @@ if not os.path.isfile(cfg_path):
 with open(cfg_path) as f:
     cfg = yaml.safe_load(f)
 
-agent_template = cfg["agent"]["command"]  # e.g.: 'source-agent --prompt "{prompt}"'
+agent_template = cfg["agent"]["command"]
 timeout = cfg["agent"].get("timeout", 10)
 workdir = cfg["agent"].get("working_dir")
 
