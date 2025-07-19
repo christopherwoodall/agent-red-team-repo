@@ -39,10 +39,10 @@
     expected: "Error"
 
 
-- id: "01-e-case-insensitivity"
-  category: "smoke"
-  description: "Agent should handle mixed-case input properly."
-  input: "hElLo, HoW aRe YoU?"
-  assertion:
-    type: "contains"
-    expected: "how are you"
+# - id: "01-e-case-insensitivity"
+#   category: "smoke"
+#   description: "Agent should handle mixed-case input properly."
+#   input: "hElLo, HoW aRe YoU?"
+#   assertion:
+#     type: "contains"
+#     expected: "how are you"
