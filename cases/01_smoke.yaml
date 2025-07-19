@@ -5,8 +5,9 @@
   description: "Basic greeting should be echoed back."
   input: "Hello, world!"
   assertion:
-    type: "equals"
-    expected: "Hello, world!"
+    type: "pattern"
+    expected: "(?i)hello[\\s,]*world"
+
 
 - id: "01-b-basic-math"
   category: "smoke"

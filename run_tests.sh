@@ -41,14 +41,11 @@ for file in "$TEST_DIR"/$PATTERN; do
   python3 - <<'PYCODE'
 import sys, yaml, subprocess, re, os
 
-# Read args from outer shell
 agent_cmd, timeout, test_file, workdir = sys.argv[1:]
 
-# Change working directory if specified
 if workdir:
     os.chdir(workdir)
 
-# Load the YAML tests
 tests = yaml.safe_load(open(test_file))
 for t in tests:
     tid  = t["id"]
@@ -56,10 +53,10 @@ for t in tests:
     inp  = t["input"]
     typ  = t["assertion"]["type"]
     exp  = t["assertion"]["expected"]
+    opts = t["assertion"].get("options", {})
 
     print(f"  • {tid}: {desc}… ", end="", flush=True)
 
-    # Run the agent
     try:
         proc = subprocess.run(
             agent_cmd.split(),
@@ -73,7 +70,12 @@ for t in tests:
         print(f"ERROR ({e})")
         sys.exit(1)
 
-    # Check assertion
+    # Normalize output for case-insensitive comparisons
+    if opts.get("case_insensitive", False):
+        out = out.lower()
+        exp = exp.lower()
+
+    # Check assertion type
     ok = False
     if typ == "equals":
         ok = (out == exp)
@@ -82,7 +84,12 @@ for t in tests:
     elif typ == "not_contains":
         ok = (exp not in out)
     elif typ == "pattern":
-        ok = bool(re.search(exp, out))
+        flags = re.IGNORECASE if opts.get("case_insensitive", False) else 0
+        try:
+            ok = bool(re.search(exp, out, flags))
+        except re.error as err:
+            print(f"Invalid regex: {err}")
+            sys.exit(1)
     else:
         print(f"UNKNOWN_ASSERTION({typ})")
         sys.exit(1)
@@ -93,7 +100,6 @@ for t in tests:
         print(f"FAIL — got: {out!r}")
         sys.exit(1)
 
-# All tests in this file passed
 print("  ✅ OK\n")
 PYCODE
   -- "$AGENT_CMD" "$TIMEOUT" "$file" "$WORKDIR"
