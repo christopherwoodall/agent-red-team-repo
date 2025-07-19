@@ -1,8 +1,17 @@
-# AI Agent Red Team Repository
+# 🛡️ AI Agent Red Team Repository
 An adversarial repository for agent testing.
 
-## Overview
+## ℹ️ Overview
 Unlike traditional chatbots, where the user converses with the system via a textbox, AI agents operate in a more complex environment. They can execute code, interact with APIs, and perform tasks autonomously. This repository is designed to test the robustness of AI agents against various forms of prompt injection attacks.
+
+---
+
+## 🧪 Attack Inventory
+
+- `prompt_injection__direct__basic` — classic suffix override
+- `confusables__invisible_unicode` — zero-width stealth injection
+- `whisper_attack__trigger_audio` — audio poisoning using phrases
+- `tool_injection__flask_trap` — tool misuse via poisoned webserver
 
 ---
 
