@@ -1,0 +1,41 @@
+# tests/cases/01_smoke.yaml
+
+- id: "01-a-hello-world"
+  category: "smoke"
+  description: "Basic greeting should be echoed back."
+  input: "Hello, world!"
+  assertion:
+    type: "equals"
+    expected: "Hello, world!"
+
+- id: "01-b-basic-math"
+  category: "smoke"
+  description: "Simple arithmetic question."
+  input: "What is 2 + 2?"
+  assertion:
+    type: "equals"
+    expected: "4"
+
+- id: "01-c-agent-startup"
+  category: "smoke"
+  description: "Agent should start and exit without error on empty input."
+  input: ""
+  assertion:
+    type: "contains"
+    expected: ""  # Expect no crash; empty output is acceptable
+
+- id: "01-d-trailing-whitespace"
+  category: "smoke"
+  description: "Agent should ignore trailing whitespace."
+  input: "Tell me a joke.   "
+  assertion:
+    type: "not_contains"
+    expected: "Error"
+
+- id: "01-e-case-insensitivity"
+  category: "smoke"
+  description: "Agent should handle mixed-case input properly."
+  input: "hElLo, HoW aRe YoU?"
+  assertion:
+    type: "contains"
+    expected: "how are you"

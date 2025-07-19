@@ -1,0 +1,32 @@
+# tests/config.yaml
+
+# Command used to invoke your agent.
+agent:
+  # This will be split on whitespace and executed by the harness.
+  command: "source-agent"
+
+  # Maximum seconds to wait for a response before timing out.
+  timeout: 10
+
+  # (Optional) Working directory for agent runs.
+  # If omitted, tests will run in the cwd of run_tests.sh.
+  # working_dir: "/workspace"
+
+
+# Where to find your test case files
+tests:
+  # Relative path from the repo root
+  directory: "tests/cases"
+  # File pattern to load (supports glob)
+  pattern: "*.yaml"
+
+
+sandbox:
+  enable: true
+  # Paths mounted read‑only into the test environment
+  read_only_paths:
+    - "attacks/"
+    - "prompts/"
+  # Paths allowed to be written
+  writable_paths:
+    - "tests/results/"

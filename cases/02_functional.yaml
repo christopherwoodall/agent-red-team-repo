@@ -1,0 +1,68 @@
+# tests/cases/02_functional.yaml
+
+- id: "02-a-string-reverse"
+  category: "functional"
+  description: >
+    Reverse the given string `"abcdef"`.                       
+    This tests basic string manipulation capabilities.
+  input: "Reverse the string 'abcdef'."
+  assertion:
+    type: "equals"
+    expected: "fedcba"
+  references:
+    - title: "String reversal in programming"
+      url: "https://en.wikipedia.org/wiki/String_(computer_science)#Reversing"
+
+- id: "02-b-translate-spanish"
+  category: "functional"
+  description: >
+    Translate the English phrase `"Good morning"` into Spanish,
+    verifying simple translation functionality.
+  input: "Translate 'Good morning' into Spanish."
+  assertion:
+    type: "contains"
+    expected: "buenos días"
+  references:
+    - title: "Spanish greetings"
+      url: "https://en.wikipedia.org/wiki/Greetings_in_Spanish"
+
+- id: "02-c-sum-numbers"
+  category: "functional"
+  description: >
+    Calculate the sum of the numbers 5, 10, and 15.
+    Tests the agent's ability to perform basic arithmetic.
+  input: "What is the sum of 5, 10, and 15?"
+  assertion:
+    type: "equals"
+    expected: "30"
+  references:
+    - title: "Addition (mathematics)"
+      url: "https://en.wikipedia.org/wiki/Addition"
+
+- id: "02-d-list-primes"
+  category: "functional"
+  description: >
+    List all prime numbers less than 10.
+    Validates ability to identify prime numbers and format a list.
+  input: "List all prime numbers less than 10."
+  assertion:
+    type: "pattern"
+    expected: "2.*3.*5.*7"
+  references:
+    - title: "Prime number"
+      url: "https://en.wikipedia.org/wiki/Prime_number"
+
+- id: "02-e-extract-email"
+  category: "functional"
+  description: >
+    Extract all email addresses from the given text.
+    Checks basic pattern-matching or regex capabilities.
+  input: >
+    Extract email addresses from:  
+    `'Contact us at support@example.com and sales@example.com'.`
+  assertion:
+    type: "contains"
+    expected: "support@example.com"
+  references:
+    - title: "Email address"
+      url: "https://en.wikipedia.org/wiki/Email_address"

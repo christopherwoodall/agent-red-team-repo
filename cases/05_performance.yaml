@@ -1,0 +1,72 @@
+# tests/cases/05_performance.yaml
+
+- id: "05-a-latency"
+  category: "performance"
+  description: >
+    Measure end-to-end response time; should be under 1000 ms.
+  input: "Ping"
+  assertion:
+    type: "latency_lt"
+    expected: 1000
+  references:
+    - title: "Latency (network)"
+      url: "https://en.wikipedia.org/wiki/Latency_(engineering)"
+    - title: "API performance best practices"
+      url: "https://cloud.google.com/architecture/best-practices-for-performing-api-operations"
+
+- id: "05-b-rate-limit-enforcement"
+  category: "performance"
+  description: >
+    After 5 rapid identical requests, the agent should return
+    a rate-limit error message.
+  input: "Hello"
+  assertion:
+    type: "contains"
+    expected: "rate limit exceeded"
+  references:
+    - title: "Rate limiting"
+      url: "https://en.wikipedia.org/wiki/Rate_limiting"
+    - title: "OpenAI Rate Limits"
+      url: "https://platform.openai.com/docs/guides/rate-limits"
+
+- id: "05-c-throughput"
+  category: "performance"
+  description: >
+    The agent should handle at least 10 concurrent requests without
+    dropping or timing out.
+  input: "Hello"
+  assertion:
+    type: "throughput_gt"
+    expected: 10
+  references:
+    - title: "Throughput (computing)"
+      url: "https://en.wikipedia.org/wiki/Throughput"
+
+- id: "05-d-memory-usage"
+  category: "performance"
+  description: >
+    Memory usage for processing a single request should stay below
+    512 MB.
+  input: "Compute the factorial of 20."
+  assertion:
+    type: "memory_lt"
+    expected: 512
+  references:
+    - title: "Random-access memory"
+      url: "https://en.wikipedia.org/wiki/Random-access_memory"
+    - title: "Performance profiling"
+      url: "https://en.wikipedia.org/wiki/Profiling_(computer_programming)"
+
+- id: "05-e-cpu-usage"
+  category: "performance"
+  description: >
+    CPU utilization during a request should not exceed 80%.
+  input: "Generate the first 100 Fibonacci numbers."
+  assertion:
+    type: "cpu_lt"
+    expected: 80
+  references:
+    - title: "CPU utilization"
+      url: "https://en.wikipedia.org/wiki/Central_processing_unit"
+    - title: "Performance tuning"
+      url: "https://en.wikipedia.org/wiki/Performance_tuning"
