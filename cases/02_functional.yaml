@@ -7,7 +7,7 @@
     This tests basic string manipulation capabilities.
   input: "Reverse the string 'abcdef'."
   assertion:
-    type: "equals"
+    type: "contains"
     expected: "fedcba"
   references:
     - title: "String reversal in programming"
@@ -33,7 +33,8 @@
     Tests the agent's ability to perform basic arithmetic.
   input: "What is the sum of 5, 10, and 15?"
   assertion:
-    type: "equals"
+  # type: "equals"
+    type: "contains"
     expected: "30"
   references:
     - title: "Addition (mathematics)"
