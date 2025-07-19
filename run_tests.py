@@ -5,6 +5,7 @@ import os
 import yaml
 import glob
 import re
+import shlex
 
 # === Load config ===
 cfg_path = "config.yaml"
@@ -15,7 +16,7 @@ if not os.path.isfile(cfg_path):
 with open(cfg_path) as f:
     cfg = yaml.safe_load(f)
 
-agent_cmd = cfg["agent"]["command"]
+agent_template = cfg["agent"]["command"]  # e.g.: 'source-agent --prompt "{prompt}"'
 timeout = cfg["agent"].get("timeout", 10)
 workdir = cfg["agent"].get("working_dir")
 
@@ -23,11 +24,11 @@ test_dir = cfg["tests"]["directory"]
 pattern = cfg["tests"]["pattern"]
 
 print("▶ Running tests with:")
-print(f"  Agent cmd: {agent_cmd}")
-print(f"  Timeout  : {timeout} s")
-print(f"  Test dir : {test_dir} (pattern: {pattern})")
+print(f"  Agent cmd template: {agent_template}")
+print(f"  Timeout           : {timeout} s")
+print(f"  Test dir          : {test_dir} (pattern: {pattern})")
 if workdir:
-    print(f"  Workdir  : {workdir}")
+    print(f"  Workdir           : {workdir}")
 print()
 
 # === Discover and run tests ===
@@ -37,9 +38,9 @@ if not yaml_files:
     sys.exit(1)
 
 for path in yaml_files:
-    suite_name = os.path.basename(path)
-    print(f"▶ Suite: {suite_name}")
+    print(f"▶ Suite: {os.path.basename(path)}")
     tests = yaml.safe_load(open(path))
+
     for t in tests:
         tid = t["id"]
         desc = t.get("description", "")
@@ -51,10 +52,14 @@ for path in yaml_files:
 
         print(f"  • {tid}: {desc}… ", end="", flush=True)
 
-        cmd = agent_cmd.strip().split()
+        # Construct command by injecting prompt input
+        escaped_prompt = inp.replace('"', '\\"')
+        command_str = agent_template.replace("{prompt}", escaped_prompt)
+        cmd = shlex.split(command_str)
+
+        # Run agent
         proc = subprocess.run(
             cmd,
-            input=inp,
             text=True,
             capture_output=True,
             timeout=timeout,
@@ -62,14 +67,13 @@ for path in yaml_files:
         )
         out = proc.stdout.strip()
 
+        # Optionally normalize
         if opts.get("case_insensitive"):
-            out_cmp = out.lower()
-            exp_cmp = exp.lower()
+            out_cmp, exp_cmp = out.lower(), exp.lower()
         else:
-            out_cmp = out
-            exp_cmp = exp
+            out_cmp, exp_cmp = out, exp
 
-        ok = False
+        # Assertion checks
         if typ == "equals":
             ok = (out_cmp == exp_cmp)
         elif typ == "contains":
