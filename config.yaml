@@ -1,4 +1,4 @@
-# tests/config.yaml
+# config.yaml
 
 # Command used to invoke your agent.
 agent:
