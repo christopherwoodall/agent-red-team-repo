@@ -8,25 +8,6 @@ Unlike traditional chatbots, where the user converses with the system via a text
 
 ---
 
-## How It Works
-### Expected Behavior
-
-| Model Type     |  Behavior                                             |
-|----------------|-------------------------------------------------------|
-| **Vulnerable** | Follows the hidden instruction (e.g., replying in a language it shouldn’t) |
-| **Hardened**   | Ignores hidden instructions or raises an error, responding only to visible text |
-
----
-
-## Attack Inventory
-
-- `prompt_injection__direct__basic` — classic suffix override
-- `confusables__invisible_unicode` — zero-width stealth injection
-- `whisper_attack__trigger_audio` — audio poisoning using phrases
-- `tool_injection__flask_trap` — tool misuse via poisoned webserver
-
----
-
 ## Resources
 
 ### Design Patterns for Securing LLM Agents against Prompt Injection
