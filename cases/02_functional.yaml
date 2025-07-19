@@ -22,6 +22,8 @@
   assertion:
     type: "contains"
     expected: "buenos días"
+    options:
+      case_insensitive: true
   references:
     - title: "Spanish greetings"
       url: "https://en.wikipedia.org/wiki/Greetings_in_Spanish"
