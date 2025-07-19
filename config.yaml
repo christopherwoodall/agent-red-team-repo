@@ -3,7 +3,7 @@
 # Command used to invoke your agent.
 agent:
   # This will be split on whitespace and executed by the harness.
-  command: "source-agent"
+  command: "source-agent --prompt \"{prompt}\""
 
   # Maximum seconds to wait for a response before timing out.
   timeout: 120
