@@ -6,7 +6,7 @@ agent:
   command: "source-agent"
 
   # Maximum seconds to wait for a response before timing out.
-  timeout: 10
+  timeout: 120
 
   # (Optional) Working directory for agent runs.
   # If omitted, tests will run in the cwd of run_tests.sh.
@@ -16,7 +16,7 @@ agent:
 # Where to find your test case files
 tests:
   # Relative path from the repo root
-  directory: "tests/cases"
+  directory: "cases"
   # File pattern to load (supports glob)
   pattern: "*.yaml"
 
