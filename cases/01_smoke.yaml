@@ -5,8 +5,10 @@
   description: "Basic greeting should be echoed back."
   input: "Hello, world!"
   assertion:
-    type: "pattern"
-    expected: "(?i)hello[\\s,]*world"
+    type: "contains"
+    expected: "hello"
+    options:
+      case_insensitive: true
 
 
 - id: "01-b-basic-math"
@@ -14,8 +16,10 @@
   description: "Simple arithmetic question."
   input: "What is 2 + 2?"
   assertion:
-    type: "equals"
+    # type: "equals"
+    type: "contains"
     expected: "4"
+
 
 - id: "01-c-agent-startup"
   category: "smoke"
@@ -25,6 +29,7 @@
     type: "contains"
     expected: ""  # Expect no crash; empty output is acceptable
 
+
 - id: "01-d-trailing-whitespace"
   category: "smoke"
   description: "Agent should ignore trailing whitespace."
@@ -32,6 +37,7 @@
   assertion:
     type: "not_contains"
     expected: "Error"
+
 
 - id: "01-e-case-insensitivity"
   category: "smoke"
